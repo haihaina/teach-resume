@@ -3,7 +3,7 @@ import Layout from "../layouts/Layout.astro";
 import "../assets/iconfont.css";
 import { Skill } from "../components/Skill";
 import config from "../../meta.config";
-const { skills, name } = config;
+const { skills, name, selfEvaluation, project } = config;
 ---
 
 <Layout title="Welcome to Astro.">
@@ -65,65 +65,86 @@ const { skills, name } = config;
     <div class="md:w-2/3 p-2 w-full">
       <div class="mx-4 mb-6">
         <h1 class="mb-4 text-4xl text-gray-700 font-bold">个人评价</h1>
-        <p class="text-lg">
-          这里写个人评价 这里写个人评价 这里写个人评价 这里写个人评价
-          这里写个人评价 这里写个人评价 这里写个人评价 这里写个人评价
-          这里写个人评价 这里写个人评价 这里写个人评价 这里写个人评价
-        </p>
+        <div class="text-lg">
+          <!-- {selfEvaluation} -->
+          {
+            selfEvaluation.map((item) => {
+              return <div>{item} </div>;
+            })
+          }
+          <div></div>
+        </div>
       </div>
       <div class="mx-4">
         <h1 class="mb-4 text-4xl text-gray-700 font-bold">工作经历</h1>
         <ul>
-          <li class="mb-4">
-            <h2 class="text-3xl font-medium text-gray-800">ABC 公司</h2>
-            <div>
-              <i class="bx bx-calendar text-sm" style="color: #666"></i>
-              <small class="text-sm text-gray-600">2021年8月 - 至今</small>
-            </div>
-            <div class="mt-1">
-              <div>
-                <h3 class="text-2xl font-medium text-gray-800">DEF项目</h3>
-                <p>基于 star 面试法来写 - 背景 - 任务 - 行动 - 结果</p>
-              </div>
-            </div>
-            <div class="mt-1">
-              <div>
-                <h3 class="text-2xl font-medium text-gray-800">GHI项目</h3>
-                <p>基于 star 面试法来写 - 背景 - 任务 - 行动 - 结果</p>
-              </div>
-            </div>
-            <div class="mt-1">
-              <div>
-                <h3 class="text-2xl font-medium text-gray-800">其他项目</h3>
-                <p>写2 - 3 个核心项目就足够了, 能体现出你的价值的</p>
-              </div>
-            </div>
-          </li>
-          <li class="mb-4">
-            <h2 class="text-3xl font-medium text-gray-800">CDE 公司</h2>
-            <div>
-              <i class="bx bx-calendar text-sm" style="color: #666"></i>
-              <small class="text-sm text-gray-600">2021年8月 - 至今</small>
-            </div>
-            <div class="mt-1">
-              <div>
-                <h3 class="text-2xl font-medium text-gray-800">DEF项目</h3>
-                <p>基于 star 面试法来写 - 背景 - 任务 - 行动 - 结果</p>
-              </div>
-            </div>
-            <div class="mt-1">
-              <div>
-                <h3 class="text-2xl font-medium text-gray-800">GHI项目</h3>
-                <p>基于 star 面试法来写 - 背景 - 任务 - 行动 - 结果</p>
-              </div>
-            </div>
-            <div class="mt-1">
-              <div>
-                <h3 class="text-2xl font-medium text-gray-800">其他项目</h3>
-                <p>写2 - 3 个核心项目就足够了, 能体现出你的价值的</p>
-              </div>
-            </div>
-          </li>
+          {
+            project.map((item) => {
+              return (
+                <li class="mb-4">
+                  <h2 class="text-3xl font-medium text-gray-800">
+                    {item.title}
+                  </h2>
+                  <div>
+                    在职时间：{item.time}
+                    </div>
+                  {
+                    item.data.map((data)=>{
+                      return (
+                      <div>
+                  </div>
+                  <div class="mt-1">
+                    <div>
+                      <h3 class="text-2xl font-medium text-gray-800">
+                        项目名称：{data.title}
+                      </h3>
+                      <i class="bx bx-calendar text-sm" style="color: #666" />
+                      <small class="text-sm text-gray-600">
+                        项目时间：{data.time}
+                      </small>
+                      <div>
+                        <div class="text-[20px] text-[red]">项目描述:</div> 
+                        {data.projectDescribe}
+                      </div>
+                      <div>
+                        <div class="text-[20px] text-[red]">项目职责:</div> 
+                        {data.responsibility}
+                      </div>
+                      <div>
+                        <div class="text-[20px] text-[red]">使用技术:</div> 
+                          {data.technology}
+                      </div>
+                      <div>
+                        <div class="text-[20px] text-[red]">项目技术:</div> 
+                        {
+                          data.useTechnology.map((usertech)=>{
+                            return (
+                              <div>{usertech}</div>
+                            )
+                          })
+                        }
+
+                      </div>
+                      <div>
+                      <div class="text-[20px] text-[red]">项目难点:</div> 
+                        {
+                          data.projectDifficulty.map((usertech)=>{
+                            return (
+                              <div>{usertech}</div>
+                            )
+                          })
+                        }
+
+                      </div>
+                    </div>
+                  </div>
+                      )
+                    })
+                  }
+                </li>
+              );
+            })
+          }
         </ul>
       </div>
       <div class="mx-4">
